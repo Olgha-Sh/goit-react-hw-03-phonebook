@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Phonebook from "../../Components/Phonebook/Phonebook";
-import storage from "../../helpers/storage";
+import React, { useState, useEffect } from 'react';
+import Phonebook from '../../Components/Phonebook/Phonebook';
+import storage from '../../helpers/storage';
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 const PhonebookContainer = () => {
-  const notify = (field) => toast.error(`💩 Contact ${field} is too short!`);
+  const notify = field => toast.error(`Contact ${field} is too short!`);
 
   const [contacts, setContacts] = useState(null);
-  const [filter, setFilter] = useState("");
-  const addContact = (contact) => {
+  const [filter, setFilter] = useState('');
+  const addContact = contact => {
     if (contact.name.length > 1 && contact.number.length > 1) {
       setContacts([...contacts, contact]);
     } else if (contact.name.length <= 1) {
-      notify("name");
+      notify('name');
     } else if (contact.number.length <= 1) {
-      notify("number");
+      notify('number');
     }
   };
 
-  const changeFilter = (e) => {
+  const changeFilter = e => {
     const name = e.target.value;
     setFilter(name);
   };
@@ -28,20 +28,20 @@ const PhonebookContainer = () => {
     if (!arr) {
       return [];
     }
-    return arr.filter((el) =>
-      el.name.toLowerCase().includes(filter.toLowerCase())
+    return arr.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase()),
     );
   };
-  const deleteContact = (id) => {
-    setContacts(contacts.filter((el) => el.id !== id));
+  const deleteContact = id => {
+    setContacts(contacts.filter(el => el.id !== id));
   };
 
   //componentDidMount
 
   useEffect(() => {
-    const contactsData = storage.get("contacts");
+    const contactsData = storage.get('contacts');
     if (!contactsData) {
-      storage.save("contacts", []);
+      storage.save('contacts', []);
       setContacts([]);
       return;
     }
@@ -51,7 +51,7 @@ const PhonebookContainer = () => {
   //componentDidUpdate
 
   useEffect(() => {
-    storage.save("contacts", contacts);
+    storage.save('contacts', contacts);
   }, [contacts]);
 
   return (
