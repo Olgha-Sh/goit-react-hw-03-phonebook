@@ -1,21 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Item, Button, Name, Number } from "./ContactItem.styles";
+import React from 'react';
+import T from 'prop-types';
+import style from './ContactItem.module.css';
 
-const ContactItem = ({ name, number, deleteContact }) => {
+const ContactItem = ({ name, number, onDeleteContact }) => {
   return (
-    <Item>
-      <Name>{name} :</Name>
-      <Number> {number}</Number>
-      <Button onClick={deleteContact}> delete</Button>
-    </Item>
+    <div className={style.contactItem}>
+      <p className={style.contact}>
+        {name}: {number}
+      </p>
+      <button type="button" onClick={onDeleteContact} className={style.listBtn}>
+        Delete
+      </button>
+    </div>
   );
 };
 
 ContactItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onDeleteContact: PropTypes.func,
+  name: T.string.isRequired,
+  number: T.string.isRequired,
+  onDeleteContact: T.func.isRequired,
 };
 
 export default ContactItem;
